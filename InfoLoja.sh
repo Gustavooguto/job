@@ -11,7 +11,7 @@ while [[ "$cont" -le "$nSetores" ]]; do
   cd "$nomeSetor"
   ls > "$tmp"/"$nomeSetor".txt
   totalEquipe=$(wc -l "$tmp/$nomeSetor.txt"| tr ' ' '&' | cut '-d&' -f1)
-  echo "$totalEquipe"
+  echo "Total de máquinas no setor $nomeSetor: $totalEquipe"
   cont2=1
   while [[ "$cont2" -le "$totalEquipe" ]]; do
   #while [[ "$cont2" -le 1 ]]; do
@@ -28,7 +28,7 @@ while [[ "$cont" -le "$nSetores" ]]; do
     ROM=$(grep -a 'Drive Model:' "$funcionarioMaquina.LOG")
     ROM+=$(grep -a 'Drive Capacity:' "$funcionarioMaquina.LOG")
     ROM+=$(grep -a 'Media Rotation Rate:' "$funcionarioMaquina.LOG")
-cat << EOF > "$funcionarioMaquina.txt"
+cat << EOF >> "$nomeSetor.txt"
   Setor: $nomeSetor
   $nomePC
   $nomeFuncionario
@@ -54,6 +54,8 @@ cat << EOF > "$funcionarioMaquina.txt"
   ------------------------------------------------------------
   HD(s). OBS: Vai aparecer tbm os pendrives ou drives opticos
   $ROM
+
+  ###########################################################################################################################
 EOF
     ((cont2++))
   done
