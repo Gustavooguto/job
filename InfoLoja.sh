@@ -16,18 +16,18 @@ while [[ "$cont" -le "$nSetores" ]]; do
   while [[ "$cont2" -le "$totalEquipe" ]]; do
   #while [[ "$cont2" -le 1 ]]; do
     funcionarioMaquina=$(cat "$tmp/$nomeSetor.txt" | head -n "$cont2" | tail -n 1 | cut '-d.' -f1)
-    nomePC=$(grep -a 'Computer Name' "$funcionarioMaquina.LOG")
-    nomeFuncionario=$(grep -a 'Computer Description' "$funcionarioMaquina.LOG")
-    rede=$(grep -a -E 'Network Card|MAC Address' "$funcionarioMaquina.LOG")
-    SO=$(grep -a 'Operating System:' "$funcionarioMaquina.LOG")
-    nSerieMB=$(grep -a -E 'Mainboard Serial Number:|Motherboard Model:' "$funcionarioMaquina.LOG")
-    modeloChipset=$(grep -a -E 'Computer Brand Name:|Motherboard Chipset:' "$funcionarioMaquina.LOG")
-    processador=$(grep -a 'Processor Name' "$funcionarioMaquina.LOG")
-    RAM=$(grep -a -A7 'Row:' "$funcionarioMaquina.LOG")
-    ramTotal=$(grep -a 'Total Memory Size:' "$funcionarioMaquina.LOG")
-    ROM=$(grep -a 'Drive Model:' "$funcionarioMaquina.LOG")
-    ROM+=$(grep -a 'Drive Capacity:' "$funcionarioMaquina.LOG")
-    ROM+=$(grep -a 'Media Rotation Rate:' "$funcionarioMaquina.LOG")
+    nomePC=$(grep -a 'Computer Name' "$funcionarioMaquina.HTM"|sed -e 's/<TR>//'|sed -e 's/<TD>//')
+    nomeFuncionario=$(grep -a 'Computer Description' "$funcionarioMaquina.HTM"|sed -e 's/<TR>//'|sed -e 's/<TD>//')
+    rede=$(grep -a -E 'Network Card|MAC Address' "$funcionarioMaquina.HTM"|sed -e 's/<TR>//'|sed -e 's/<TD>//')
+    SO=$(grep -a 'Operating System:' "$funcionarioMaquina.HTM"|sed -e 's/<TR>//'|sed -e 's/<TD>//')
+    nSerieMB=$(grep -a -E 'Mainboard Serial Number:|Motherboard Model:' "$funcionarioMaquina.HTM"|sed -e 's/<TR>//'|sed -e 's/<TD>//')
+    modeloChipset=$(grep -a -E 'Computer Brand Name:|Motherboard Chipset:' "$funcionarioMaquina.HTM"|sed -e 's/<TR>//'|sed -e 's/<TD>//')
+    processador=$(grep -a 'Processor Name' "$funcionarioMaquina.HTM"|sed -e 's/<TR>//'|sed -e 's/<TD>//')
+    RAM=$(grep -a -A7 'Row:' "$funcionarioMaquina.HTM"|sed -e 's/<TR>//'|sed -e 's/<TD>//')
+    ramTotal=$(grep -a 'Total Memory Size:' "$funcionarioMaquina.HTM"|sed -e 's/<TR>//'|sed -e 's/<TD>//')
+    ROM=$(grep -a 'Drive Model:' "$funcionarioMaquina.HTM"|sed -e 's/<TR>//'|sed -e 's/<TD>//')
+    ROM+=$(grep -a 'Drive Capacity:' "$funcionarioMaquina.HTM"|sed -e 's/<TR>//'|sed -e 's/<TD>//')
+    ROM+=$(grep -a 'Media Rotation Rate:' "$funcionarioMaquina.HTM"|sed -e 's/<TR>//'|sed -e 's/<TD>//')
 cat << EOF >> "$nomeSetor.txt"
   Setor: $nomeSetor
   $nomePC
